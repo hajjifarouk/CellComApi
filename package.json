@@ -1,0 +1,23 @@
+{
+  "name": "cellcomapi",
+  "version": "1.0.0",
+  "description": "rest api for cellcom form manager",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "Farouk_HAJJI",
+  "license": "MIT",
+  "dependencies": {
+    "basic-auth": "^1.1.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "jsonwebtoken": "^7.4.1",
+    "mongoose": "^4.11.1",
+    "morgan": "^1.8.2",
+    "nodemailer": "^4.0.1",
+    "randomstring": "^1.1.5"
+  }
+}
