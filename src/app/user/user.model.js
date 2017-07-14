@@ -5,6 +5,8 @@ var UserSchema = new mongoose.Schema({
     last_name:String,
     email:String,
     tel:Number,
+    isActive:Boolean,
+    isOnline:Boolean,
     temp_password	: String,
 	temp_password_time: String,
     place:{ type: mongoose.Schema.Types.ObjectId, ref: 'Place' },
