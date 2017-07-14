@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 
 var PlaceSchema = new mongoose.Schema({
-    longitude: Float,
-    latitude:Float,
+    longitude: Number,
+    latitude:Number,
 });
 
 module.exports = mongoose.model("Place", PlaceSchema);
