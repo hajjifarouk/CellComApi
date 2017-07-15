@@ -16,15 +16,15 @@ exports.getByProcess = function (req, res) {
 // Display one answer by id
 exports.getOneById = function (req, res) {
     let id = req.params.id;
-    Answer.find({ id: id })
+    Answer.find({ _id: id })
         .then(answer => res.send(answer))
         .catch(error => res.send(error));
 };
 // Creates one answer
 exports.add = function (req, res) {
     const newAnswer = new Answer({
-        text: req.params.text,
-        questions: req.params.questions
+        text: req.body.text,
+        questions: req.body.questions
     });
     newAnswer.save()
         .then(answer => res.send(answer))
@@ -33,11 +33,11 @@ exports.add = function (req, res) {
 // Updates one answer
 exports.edit = function (req, res) {
     let id = req.params.id;
-    Answer.update({ id: id },
+    Answer.update({ _id: id },
         {
             $set: {
-                text: req.params.text,
-                questions: req.params.questions
+                text: req.body.text,
+                questions: req.body.questions
             }
         },
         { upsert: true })
@@ -47,7 +47,7 @@ exports.edit = function (req, res) {
 // Removes one answer
 exports.delete = function (req, res) {
     let id = req.params.id;
-    Answer.remove({ id: id })
+    Answer.remove({ _id: id })
         .then(answer => res.send(answer))
         .catch(error => res.send(error));
 };

@@ -1,26 +1,63 @@
 var Report = require('./report.model.js');
 
 // Display list of all reports
-exports.get = function(req, res) {
-    res.send('NOT IMPLEMENTED: Report list');
+exports.get = function (req, res) {
+    Report.find()
+        .then(reports => res.send(reports))
+        .catch(error => res.send(error));
 };
 // Display list of all reports for a specific process
-exports.getByProcess = function(req, res) {
-    res.send('NOT IMPLEMENTED: Report list');
+exports.getByProcess = function (req, res) {
+    let process = req.params.process;
+    Report.find({ process: process })
+        .then(reports => res.send(reports))
+        .catch(error => res.send(error));
 };
 // Display one report by id
-exports.getOneById = function(req, res) {
-    res.send('NOT IMPLEMENTED: a Report');
+exports.getOneById = function (req, res) {
+    let id = req.params.id;
+    Report.find({ _id: id })
+        .then(report => res.send(report))
+        .catch(error => res.send(error));
 };
 // Creates one report
-exports.add = function(req, res) {
-    res.send('NOT IMPLEMENTED: created Report');
+exports.add = function (req, res) {
+    const newShop = new Shop({
+        ref: req.body.ref,
+        date: req.body.date,
+        user: req.body.user,
+        shop: req.body.shop,
+        form: req.body.form,
+        answers: req.body.answers,
+        process: req.body.process
+    });
+    newShop.save()
+        .then(shop => res.send(shop))
+        .catch(error => res.send(error));
 };
 // Updates one report
-exports.edit = function(req, res) {
-    res.send('NOT IMPLEMENTED: edited Report');
+exports.edit = function (req, res) {
+    let id = req.params.id;
+    Shop.update({ _id: id },
+        {
+            $set: {
+                ref: req.body.ref,
+                date: req.body.date,
+                user: req.body.user,
+                shop: req.body.shop,
+                form: req.body.form,
+                answers: req.body.answers,
+                process: req.body.process
+            }
+        },
+        { upsert: true })
+        .then(shop => res.send(shop))
+        .catch(error => res.send(error));
 };
 // Removes one report
-exports.delete = function(req, res) {
-    res.send('NOT IMPLEMENTED: deleted Report');
+exports.delete = function (req, res) {
+    let id = req.params.id;
+    Report.remove({ _id: id })
+        .then(report => res.send(report))
+        .catch(error => res.send(error));
 };

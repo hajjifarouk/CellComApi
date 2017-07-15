@@ -16,18 +16,18 @@ exports.getByProcess = function (req, res) {
 // Display one form by id
 exports.getOneById = function (req, res) {
     let id = req.params.id;
-    Form.find({ id: id })
+    Form.find({ _id: id })
         .then(form => res.send(form))
         .catch(error => res.send(error));
 };
 // Creates one form
 exports.add = function (req, res) {
     const newForm = new Form({
-        ref: req.params.ref,
-        title: req.params.title,
-        description: req.params.description,
-        questions: req.params.questions,
-        process: req.params.process
+        ref: req.body.ref,
+        title: req.body.title,
+        description: req.body.description,
+        questions: req.body.questions,
+        process: req.body.process
     });
     newForm.save()
         .then(form => res.send(form))
@@ -36,14 +36,14 @@ exports.add = function (req, res) {
 // Updates one form
 exports.edit = function (req, res) {
     let id = req.params.id;
-    Form.update({ id: id },
+    Form.update({ _id: id },
         {
             $set: {
-                ref: req.params.ref,
-                title: req.params.title,
-                description: req.params.description,
-                questions: req.params.questions,
-                process: req.params.process
+                ref: req.body.ref,
+                title: req.body.title,
+                description: req.body.description,
+                questions: req.body.questions,
+                process: req.body.process
             }
         },
         { upsert: true })
@@ -53,7 +53,7 @@ exports.edit = function (req, res) {
 // Removes one form
 exports.delete = function (req, res) {
     let id = req.params.id;
-    Form.remove({ id: id })
+    Form.remove({ _id: id })
         .then(form => res.send(form))
         .catch(error => res.send(error));
 };

@@ -16,16 +16,16 @@ exports.getByProcess = function (req, res) {
 // Display one plan by id
 exports.getOneById = function (req, res) {
     let id = req.params.id;
-    Plan.find({ id: id })
+    Plan.find({ _id: id })
         .then(plan => res.send(plan))
         .catch(error => res.send(error));
 };
 // Creates one plan
 exports.add = function (req, res) {
     const newPlan = new Plan({
-        date: req.params.date,
-        user: req.params.user,
-        visits: req.params.visits
+        date: req.body.date,
+        user: req.body.user,
+        visits: req.body.visits
     });
     newPlan.save()
         .then(plan => res.send(plan))
@@ -34,12 +34,12 @@ exports.add = function (req, res) {
 // Updates one plan
 exports.edit = function (req, res) {
     let id = req.params.id;
-    Plan.update({ id: id },
+    Plan.update({ _id: id },
         {
             $set: {
-                date: req.params.date,
-                user: req.params.user,
-                visits: req.params.visits
+                date: req.body.date,
+                user: req.body.user,
+                visits: req.body.visits
             }
         },
         { upsert: true })
@@ -49,7 +49,7 @@ exports.edit = function (req, res) {
 // Removes one plan
 exports.delete = function (req, res) {
     let id = req.params.id;
-    Plan.remove({ id: id })
+    Plan.remove({ _id: id })
         .then(plan => res.send(plan))
         .catch(error => res.send(error));
 };

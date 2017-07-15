@@ -16,16 +16,16 @@ exports.getByProcess = function (req, res) {
 // Display one Visit by id
 exports.getOneById = function (req, res) {
     let id = req.params.id;
-    Visit.find({ id: id })
+    Visit.find({ _id: id })
         .then(visit => res.send(visit))
         .catch(error => res.send(error));
 };
 // Creates one Visit
 exports.add = function (req, res) {
     const newVisit = new Visit({
-        status: req.params.status,
-        shop: req.params.shop,
-        process: req.params.process
+        status: req.body.status,
+        shop: req.body.shop,
+        process: req.body.process
     });
     newVisit.save()
         .then(visit => res.send(visit))
@@ -34,12 +34,12 @@ exports.add = function (req, res) {
 // Updates one Visit
 exports.edit = function (req, res) {
     let id = req.params.id;
-    Visit.update({ id: id },
+    Visit.update({ _id: id },
         {
             $set: {
-                status: req.params.status,
-                shop: req.params.shop,
-                process: req.params.process
+                status: req.body.status,
+                shop: req.body.shop,
+                process: req.body.process
             }
         },
         { upsert: true })
@@ -49,7 +49,7 @@ exports.edit = function (req, res) {
 // Removes one Visit
 exports.delete = function (req, res) {
     let id = req.params.id;
-    Visit.remove({ id: id })
+    Visit.remove({ _id: id })
         .then(visit => res.send(visit))
         .catch(error => res.send(error));
 };

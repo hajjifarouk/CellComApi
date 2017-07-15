@@ -16,16 +16,16 @@ exports.getByProcess = function (req, res) {
 // Display one question by id
 exports.getOneById = function (req, res) {
     let id = req.params.id;
-    Question.find({ id: id })
+    Question.find({ _id: id })
         .then(question => res.send(question))
         .catch(error => res.send(error));
 };
 // Creates one question
 exports.add = function (req, res) {
     const newQuestion = new Question({
-        body: req.params.body,
-        type: req.params.type,
-        choices: req.params.choices
+        body: req.body.body,
+        type: req.body.type,
+        choices: req.body.choices
     });
     newQuestion.save()
         .then(question => res.send(question))
@@ -34,12 +34,12 @@ exports.add = function (req, res) {
 // Updates one question
 exports.edit = function (req, res) {
     let id = req.params.id;
-    Question.update({ id: id },
+    Question.update({ _id: id },
         {
             $set: {
-                body: req.params.body,
-                type: req.params.type,
-                choices: req.params.choices
+                body: req.body.body,
+                type: req.body.type,
+                choices: req.body.choices
             }
         },
         { upsert: true })
@@ -49,7 +49,7 @@ exports.edit = function (req, res) {
 // Removes one question
 exports.delete = function (req, res) {
     let id = req.params.id;
-    Question.remove({ id: id })
+    Question.remove({ _id: id })
         .then(question => res.send(question))
         .catch(error => res.send(error));
 };

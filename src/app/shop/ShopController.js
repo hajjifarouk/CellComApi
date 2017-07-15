@@ -16,23 +16,23 @@ exports.getByProcess = function (req, res) {
 // Display one shop by id
 exports.getOneById = function (req, res) {
     let id = req.params.id;
-    Shop.find({ id: id })
+    Shop.find({ _id: id })
         .then(shop => res.send(shop))
         .catch(error => res.send(error));
 };
 // Creates one shop
 exports.add = function (req, res) {
     const newShop = new Shop({
-        code: req.params.code,
-        shop_name: req.params.shop_name,
-        client_name: req.params.client_name,
-        email: req.params.email,
-        tel: req.params.tel,
-        address: req.params.address,
-        city: req.params.city,
-        province: req.params.province,
-        place: req.params.place,
-        process: req.params.process
+        code: req.body.code,
+        shop_name: req.body.shop_name,
+        client_name: req.body.client_name,
+        email: req.body.email,
+        tel: req.body.tel,
+        address: req.body.address,
+        city: req.body.city,
+        province: req.body.province,
+        place: req.body.place,
+        process: req.body.process
     });
     newShop.save()
         .then(shop => res.send(shop))
@@ -41,18 +41,18 @@ exports.add = function (req, res) {
 // Updates one shop
 exports.edit = function (req, res) {
     let id = req.params.id;
-    Shop.update({ id: id },
+    Shop.update({ _id: id },
         {
             $set: {
-                shop_name: req.params.shop_name,
-                client_name: req.params.client_name,
-                email: req.params.email,
-                tel: req.params.tel,
-                address: req.params.address,
-                city: req.params.city,
-                province: req.params.province,
-                place: req.params.place,
-                process: req.params.process
+                shop_name: req.body.shop_name,
+                client_name: req.body.client_name,
+                email: req.body.email,
+                tel: req.body.tel,
+                address: req.body.address,
+                city: req.body.city,
+                province: req.body.province,
+                place: req.body.place,
+                process: req.body.process
             }
         },
         { upsert: true })
@@ -62,7 +62,7 @@ exports.edit = function (req, res) {
 // Removes one shop
 exports.delete = function (req, res) {
     let id = req.params.id;
-    Shop.remove({ id: id })
+    Shop.remove({ _id: id })
         .then(shop => res.send(shop))
         .catch(error => res.send(error));
 };
