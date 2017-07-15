@@ -4,10 +4,10 @@ let jwt = require('jsonwebtoken');
 let auth = require('basic-auth');
 let nodemailer = require('nodemailer');
 let randomstring = require('randomstring');
-let config = require('');
+let config = require('../../config/config.json');
 
 // Display list of all users
-exports.getUsers = function(req, res) {
+exports.get = function(req, res) {
     User.find()
     .populate('process')
     .populate('place')
@@ -18,7 +18,7 @@ exports.getUsers = function(req, res) {
     });
 };
 // Display list of all users for a specific process
-exports.getUsersByProcess = function(req, res) {
+exports.getByProcess = function(req, res) {
     let process=req.params.process;
     User.find({process:process})
     .populate('process')
@@ -30,7 +30,7 @@ exports.getUsersByProcess = function(req, res) {
     });
 };
 // Display one user by id
-exports.getOneUserById = function(req, res) {
+exports.getOneById = function(req, res) {
     let id=req.params.id;
     User.findOne({id:id})
     .populate('process')
@@ -53,7 +53,7 @@ exports.getOneUserByEmail = function(req, res) {
     });
 };
 // Creates one user (for admin)
-exports.addUser = function(req, res) {
+exports.add = function(req, res) {
     let first_name=req.params.first_name;
     let last_name=req.params.last_name;
     let email=req.params.email;
@@ -111,7 +111,7 @@ exports.register = function(req, res) {
     });
 };
 // Updates one user by id
-exports.editUserById = function(req, res) {
+exports.edit = function(req, res) {
     let id=req.params.id;
     let updatedUser=req.body.user;
     User.findOne({id:id}).exec(function(error,user){
@@ -157,7 +157,7 @@ exports.editUserByEmail = function(req, res) {
     });
 };
 // Removes one user by id
-exports.deleteUserById = function(req, res) {
+exports.delete = function(req, res) {
     let id=rq.params.id;
     User.findOne({id:id}).exec(function(error,user){
         if(error) res.send(error);

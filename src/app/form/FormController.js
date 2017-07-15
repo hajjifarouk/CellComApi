@@ -1,27 +1,27 @@
 var Form = require('./form.model.js');
 
 // Display list of all forms
-exports.getForms = function (req, res) {
-    Shop.find()
-        .then(shops => res.send(shops))
+exports.get = function (req, res) {
+    Form.find()
+        .then(forms => res.send(forms))
         .catch(error => res.send(error));
 };
 // Display list of all forms for a specific process
-exports.getFormsByProcess = function (req, res) {
+exports.getByProcess = function (req, res) {
     let process = req.params.process;
     Form.find({ process: process })
         .then(forms => res.send(forms))
         .catch(error => res.send(error));
 };
 // Display one form by id
-exports.getOneFormById = function (req, res) {
+exports.getOneById = function (req, res) {
     let id = req.params.id;
     Form.find({ id: id })
         .then(form => res.send(form))
         .catch(error => res.send(error));
 };
 // Creates one form
-exports.addForm = function (req, res) {
+exports.add = function (req, res) {
     const newForm = new Form({
         ref: req.params.ref,
         title: req.params.title,
@@ -34,7 +34,7 @@ exports.addForm = function (req, res) {
         .catch(error => res.send(error));
 };
 // Updates one form
-exports.editForm = function (req, res) {
+exports.edit = function (req, res) {
     let id = req.params.id;
     Form.update({ id: id },
         {
@@ -51,7 +51,7 @@ exports.editForm = function (req, res) {
         .catch(error => res.send(error));
 };
 // Removes one form
-exports.deleteForm = function (req, res) {
+exports.delete = function (req, res) {
     let id = req.params.id;
     Form.remove({ id: id })
         .then(form => res.send(form))

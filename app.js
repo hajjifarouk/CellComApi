@@ -7,10 +7,10 @@ const port 	   = process.env.PORT || 1337;
 const db = require('./src/mongoose.db.js');
 
 app.use(bodyParser.json());
-app.use(logger('dev'));
-
-app.use('/api/v1', router);
+//app.use(logger('dev'));
+require('./src/routes')(router);
+app.use('/', router);
 
 app.listen(port);
 
-console.log(`App Runs on ${port}`);
+console.log(`App Runs on http://localhost:${port}/`);
