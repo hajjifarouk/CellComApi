@@ -7,6 +7,7 @@ var ReportSchema = new mongoose.Schema({
     shop:{ type: mongoose.Schema.Types.ObjectId, ref: 'Shop' },
     form:{ type: mongoose.Schema.Types.ObjectId, ref: 'Form' },
     answers:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Answer' }],
-    process:{ type: mongoose.Schema.Types.ObjectId, ref: 'Process' }
+    process:{ type: mongoose.Schema.Types.ObjectId, ref: 'Process' },
+    imgs: [{ data: Buffer, contentType: String }],
 });
 module.exports = mongoose.model("Report", ReportSchema);

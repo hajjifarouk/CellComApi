@@ -3,6 +3,8 @@ var Visit = require('./visit.model.js');
 // Display list of all Visits
 exports.get = function (req, res) {
     Visit.find()
+        .populate('process')
+        .populate('shop')
         .then(visits => res.send(visits))
         .catch(error => res.send(error));
 };
@@ -10,6 +12,8 @@ exports.get = function (req, res) {
 exports.getByProcess = function (req, res) {
     let process = req.params.process;
     Visit.find({ process: process })
+        .populate('process')
+        .populate('shop')
         .then(visits => res.send(visits))
         .catch(error => res.send(error));
 };
@@ -17,6 +21,8 @@ exports.getByProcess = function (req, res) {
 exports.getOneById = function (req, res) {
     let id = req.params.id;
     Visit.find({ _id: id })
+        .populate('process')
+        .populate('shop')
         .then(visit => res.send(visit))
         .catch(error => res.send(error));
 };
@@ -28,6 +34,8 @@ exports.add = function (req, res) {
         process: req.body.process
     });
     newVisit.save()
+        .populate('process')
+        .populate('shop')
         .then(visit => res.send(visit))
         .catch(error => res.send(error));
 };
@@ -43,6 +51,8 @@ exports.edit = function (req, res) {
             }
         },
         { upsert: true })
+        .populate('process')
+        .populate('shop')
         .then(visit => res.send(visit))
         .catch(error => res.send(error));
 };
@@ -50,6 +60,8 @@ exports.edit = function (req, res) {
 exports.delete = function (req, res) {
     let id = req.params.id;
     Visit.remove({ _id: id })
+        .populate('process')
+        .populate('shop')
         .then(visit => res.send(visit))
         .catch(error => res.send(error));
 };

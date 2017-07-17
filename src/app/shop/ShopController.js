@@ -3,6 +3,8 @@ var Shop = require('./shop.model.js');
 // Display list of all shops
 exports.get = function (req, res) {
     Shop.find()
+        .populate('place')
+        .populate('process')
         .then(shops => res.send(shops))
         .catch(error => res.send(error));
 };
@@ -10,6 +12,8 @@ exports.get = function (req, res) {
 exports.getByProcess = function (req, res) {
     let process = req.params.process;
     Shop.find({ process: process })
+        .populate('place')
+        .populate('process')
         .then(shops => res.send(shops))
         .catch(error => res.send(error));
 };
@@ -17,6 +21,8 @@ exports.getByProcess = function (req, res) {
 exports.getOneById = function (req, res) {
     let id = req.params.id;
     Shop.find({ _id: id })
+        .populate('place')
+        .populate('process')
         .then(shop => res.send(shop))
         .catch(error => res.send(error));
 };
@@ -35,6 +41,8 @@ exports.add = function (req, res) {
         process: req.body.process
     });
     newShop.save()
+        .populate('place')
+        .populate('process')
         .then(shop => res.send(shop))
         .catch(error => res.send(error));
 };
@@ -56,6 +64,8 @@ exports.edit = function (req, res) {
             }
         },
         { upsert: true })
+        .populate('place')
+        .populate('process')
         .then(shop => res.send(shop))
         .catch(error => res.send(error));
 };
@@ -63,6 +73,8 @@ exports.edit = function (req, res) {
 exports.delete = function (req, res) {
     let id = req.params.id;
     Shop.remove({ _id: id })
+        .populate('place')
+        .populate('process')
         .then(shop => res.send(shop))
         .catch(error => res.send(error));
 };

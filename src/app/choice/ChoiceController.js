@@ -1,9 +1,13 @@
 var Choice = require('./choice.model.js');
+var socketIO = global.socketIO;
 
 // Display list of all choices
 exports.get = function (req, res) {
     Choice.find()
-        .then(choices => res.send(choices))
+        .then(choices => {
+            global.socketIO.sockets.emit('choices retreived');
+            res.send(choices);
+        })
         .catch(error => res.send(error));
 };
 // Display list of all choices for a specific process

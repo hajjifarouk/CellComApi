@@ -7,6 +7,7 @@ var UserSchema = new mongoose.Schema({
     tel:Number,
     isActive:Boolean,
     isOnline:Boolean,
+    img: { data: Buffer, contentType: String },
     temp_password	: String,
 	temp_password_time: String,
     place:{ type: mongoose.Schema.Types.ObjectId, ref: 'Place' },

@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 require('./src/routes')(router);
 app.use('/', router);
 
-app.listen(port);
+var serve =app.listen(port);
+require('./src/config/socket.io')(app, serve);
 
 console.log(`App Runs on http://localhost:${port}/`);

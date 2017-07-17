@@ -3,6 +3,11 @@ var Report = require('./report.model.js');
 // Display list of all reports
 exports.get = function (req, res) {
     Report.find()
+        .populate('user')
+        .populate('shop')
+        .populate('form')
+        .populate('answers')
+        .populate('process')
         .then(reports => res.send(reports))
         .catch(error => res.send(error));
 };
@@ -10,6 +15,11 @@ exports.get = function (req, res) {
 exports.getByProcess = function (req, res) {
     let process = req.params.process;
     Report.find({ process: process })
+        .populate('user')
+        .populate('shop')
+        .populate('form')
+        .populate('answers')
+        .populate('process')
         .then(reports => res.send(reports))
         .catch(error => res.send(error));
 };
@@ -17,6 +27,11 @@ exports.getByProcess = function (req, res) {
 exports.getOneById = function (req, res) {
     let id = req.params.id;
     Report.find({ _id: id })
+        .populate('user')
+        .populate('shop')
+        .populate('form')
+        .populate('answers')
+        .populate('process')
         .then(report => res.send(report))
         .catch(error => res.send(error));
 };
@@ -32,6 +47,11 @@ exports.add = function (req, res) {
         process: req.body.process
     });
     newShop.save()
+        .populate('user')
+        .populate('shop')
+        .populate('form')
+        .populate('answers')
+        .populate('process')
         .then(shop => res.send(shop))
         .catch(error => res.send(error));
 };
@@ -51,6 +71,11 @@ exports.edit = function (req, res) {
             }
         },
         { upsert: true })
+        .populate('user')
+        .populate('shop')
+        .populate('form')
+        .populate('answers')
+        .populate('process')
         .then(shop => res.send(shop))
         .catch(error => res.send(error));
 };
@@ -58,6 +83,11 @@ exports.edit = function (req, res) {
 exports.delete = function (req, res) {
     let id = req.params.id;
     Report.remove({ _id: id })
+        .populate('user')
+        .populate('shop')
+        .populate('form')
+        .populate('answers')
+        .populate('process')
         .then(report => res.send(report))
         .catch(error => res.send(error));
 };

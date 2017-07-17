@@ -3,6 +3,9 @@ var Form = require('./form.model.js');
 // Display list of all forms
 exports.get = function (req, res) {
     Form.find()
+        .populate('process')
+        .populate('questions')
+        .populate('questions.choices')
         .then(forms => res.send(forms))
         .catch(error => res.send(error));
 };
@@ -10,6 +13,9 @@ exports.get = function (req, res) {
 exports.getByProcess = function (req, res) {
     let process = req.params.process;
     Form.find({ process: process })
+        .populate('process')
+        .populate('questions')
+        .populate('questions.choices')
         .then(forms => res.send(forms))
         .catch(error => res.send(error));
 };
@@ -17,6 +23,9 @@ exports.getByProcess = function (req, res) {
 exports.getOneById = function (req, res) {
     let id = req.params.id;
     Form.find({ _id: id })
+        .populate('process')
+        .populate('questions')
+        .populate('questions.choices')
         .then(form => res.send(form))
         .catch(error => res.send(error));
 };
@@ -30,6 +39,9 @@ exports.add = function (req, res) {
         process: req.body.process
     });
     newForm.save()
+        .populate('process')
+        .populate('questions')
+        .populate('questions.choices')
         .then(form => res.send(form))
         .catch(error => res.send(error));
 };
@@ -47,6 +59,9 @@ exports.edit = function (req, res) {
             }
         },
         { upsert: true })
+        .populate('process')
+        .populate('questions')
+        .populate('questions.choices')
         .then(form => res.send(form))
         .catch(error => res.send(error));
 };
@@ -54,6 +69,9 @@ exports.edit = function (req, res) {
 exports.delete = function (req, res) {
     let id = req.params.id;
     Form.remove({ _id: id })
+        .populate('process')
+        .populate('questions')
+        .populate('questions.choices')
         .then(form => res.send(form))
         .catch(error => res.send(error));
 };

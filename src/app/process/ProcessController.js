@@ -3,6 +3,7 @@ var Process = require('./process.model.js');
 // Display list of all processs
 exports.get = function (req, res) {
     Process.find()
+        .populate('chef')
         .then(processs => res.send(processs))
         .catch(error => res.send(error));
 };
@@ -10,6 +11,7 @@ exports.get = function (req, res) {
 exports.getOneById = function (req, res) {
     let id = req.params.id;
     Process.find({ _id: id })
+        .populate('chef')
         .then(process => res.send(process))
         .catch(error => res.send(error));
 };
@@ -21,6 +23,7 @@ exports.add = function (req, res) {
         chef: req.body.chef
     });
     newProcess.save()
+        .populate('chef')
         .then(process => res.send(process))
         .catch(error => res.send(error));
 };
@@ -36,6 +39,7 @@ exports.edit = function (req, res) {
             }
         },
         { upsert: true })
+        .populate('chef')
         .then(process => res.send(process))
         .catch(error => res.send(error));
 };
@@ -43,6 +47,7 @@ exports.edit = function (req, res) {
 exports.delete = function (req, res) {
     let id = req.params.id;
     Process.remove({ _id: id })
+        .populate('chef')
         .then(process => res.send(process))
         .catch(error => res.send(error));
 };

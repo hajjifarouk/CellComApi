@@ -2,7 +2,9 @@ var Plan = require('./plan.model.js');
 
 // Display list of all plans
 exports.get = function (req, res) {
-    Plan.find({ process: process })
+    Plan.find()
+        .populate('user')
+        .populate('visits')
         .then(plans => res.send(plans))
         .catch(error => res.send(error));
 };
@@ -10,6 +12,8 @@ exports.get = function (req, res) {
 exports.getByProcess = function (req, res) {
     let process = req.params.process;
     Plan.find({ process: process })
+        .populate('user')
+        .populate('visits')
         .then(plans => res.send(plans))
         .catch(error => res.send(error));
 };
@@ -17,6 +21,8 @@ exports.getByProcess = function (req, res) {
 exports.getOneById = function (req, res) {
     let id = req.params.id;
     Plan.find({ _id: id })
+        .populate('user')
+        .populate('visits')
         .then(plan => res.send(plan))
         .catch(error => res.send(error));
 };
@@ -28,6 +34,8 @@ exports.add = function (req, res) {
         visits: req.body.visits
     });
     newPlan.save()
+        .populate('user')
+        .populate('visits')
         .then(plan => res.send(plan))
         .catch(error => res.send(error));
 };
@@ -43,6 +51,8 @@ exports.edit = function (req, res) {
             }
         },
         { upsert: true })
+        .populate('user')
+        .populate('visits')
         .then(plan => res.send(plan))
         .catch(error => res.send(error));
 };
@@ -50,6 +60,8 @@ exports.edit = function (req, res) {
 exports.delete = function (req, res) {
     let id = req.params.id;
     Plan.remove({ _id: id })
+        .populate('user')
+        .populate('visits')
         .then(plan => res.send(plan))
         .catch(error => res.send(error));
 };

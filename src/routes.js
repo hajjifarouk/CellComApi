@@ -82,6 +82,18 @@ module.exports = router => {
     router.post('/answer', (req, res) => AnswerController.add(req, res));
     router.put('/answer/:id', (req, res) => AnswerController.edit(req, res));
     router.delete('/answer/:id', (req, res) => AnswerController.delete(req, res));
-    
+    // User model routes
+    router.get('/user', (req, res) => UserController.get(req, res));
+    router.get('/user/:id', (req, res) => UserController.getOneById(req, res));
+    router.get('/user/:email', (req, res) => UserController.getOneByEmail(req, res));
+    router.get('/user/:process', (req, res) => UserController.getByProcess(req, res));
+    router.post('/user', (req, res) => UserController.add(req, res));
+    router.put('/user/:id', (req, res) => UserController.edit(req, res));
+    router.put('/user/:email', (req, res) => UserController.editByEmail(req, res));
+    router.delete('/user/:id', (req, res) => UserController.delete(req, res));
+    router.put('/user/:id', (req, res) => UserController.changePassword(req, res));
+    router.post('/user/:id/password', (req, res) => UserController.resetPassword(req, res));
+    router.post('/login', (req, res) => UserController.login(req, res));
+    router.post('/register', (req, res) => UserController.register(req, res));
 
 }

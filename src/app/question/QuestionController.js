@@ -3,6 +3,7 @@ var Question = require('./question.model.js');
 // Display list of all questions
 exports.get = function (req, res) {
     Question.find()
+        .populate('choices')
         .then(questions => res.send(questions))
         .catch(error => res.send(error));
 };
@@ -10,6 +11,7 @@ exports.get = function (req, res) {
 exports.getByProcess = function (req, res) {
     let process = req.params.process;
     Question.find({ process: process })
+        .populate('choices')
         .then(questions => res.send(questions))
         .catch(error => res.send(error));
 };
@@ -17,6 +19,7 @@ exports.getByProcess = function (req, res) {
 exports.getOneById = function (req, res) {
     let id = req.params.id;
     Question.find({ _id: id })
+        .populate('choices')
         .then(question => res.send(question))
         .catch(error => res.send(error));
 };
@@ -28,6 +31,7 @@ exports.add = function (req, res) {
         choices: req.body.choices
     });
     newQuestion.save()
+        .populate('choices')
         .then(question => res.send(question))
         .catch(error => res.send(error));
 };
@@ -43,6 +47,7 @@ exports.edit = function (req, res) {
             }
         },
         { upsert: true })
+        .populate('choices')
         .then(question => res.send(question))
         .catch(error => res.send(error));
 };
@@ -50,6 +55,7 @@ exports.edit = function (req, res) {
 exports.delete = function (req, res) {
     let id = req.params.id;
     Question.remove({ _id: id })
+        .populate('choices')
         .then(question => res.send(question))
         .catch(error => res.send(error));
 };
