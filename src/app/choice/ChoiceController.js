@@ -5,7 +5,7 @@ var socketIO = global.socketIO;
 exports.get = function (req, res) {
     Choice.find()
         .then(choices => {
-            global.socketIO.sockets.emit('choices retreived');
+            global.socketIO.sockets.emit('choices_retreived',choices);
             res.send(choices);
         })
         .catch(error => res.send(error));

@@ -41,8 +41,6 @@ exports.add = function (req, res) {
         process: req.body.process
     });
     newShop.save()
-        .populate('place')
-        .populate('process')
         .then(shop => res.send(shop))
         .catch(error => res.send(error));
 };

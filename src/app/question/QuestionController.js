@@ -26,8 +26,8 @@ exports.getOneById = function (req, res) {
 // Creates one question
 exports.add = function (req, res) {
     const newQuestion = new Question({
-        body: req.body.body,
-        type: req.body.type,
+        text: req.body.body,
+        kind: req.body.type,
         choices: req.body.choices
     });
     newQuestion.save()
@@ -41,8 +41,8 @@ exports.edit = function (req, res) {
     Question.update({ _id: id },
         {
             $set: {
-                body: req.body.body,
-                type: req.body.type,
+                text: req.body.body,
+                kind: req.body.type,
                 choices: req.body.choices
             }
         },

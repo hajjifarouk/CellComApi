@@ -75,7 +75,7 @@ exports.add = function (req, res) {
         role: req.body.role
     });
     newUser.save()
-        .then(shop => res.send(shop)) //TODO : send welcome mail
+        .then(user => {res.send(user); console.log(user);}) //TODO : send welcome mail
         .catch(error => res.send(error));
 };
 // Creates one user (for user)
@@ -112,7 +112,6 @@ exports.edit = function (req, res) {
                 tel: req.body.tel,
                 isActive: req.body.isActive,
                 isOnline: req.body.isOnline,
-                hashed_password: hash,
                 img: req.body.img,
                 place: req.body.place,
                 process: req.body.process,

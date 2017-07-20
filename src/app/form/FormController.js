@@ -34,14 +34,12 @@ exports.add = function (req, res) {
     const newForm = new Form({
         ref: req.body.ref,
         title: req.body.title,
+        isActive: req.body.isActive,
         description: req.body.description,
         questions: req.body.questions,
         process: req.body.process
     });
     newForm.save()
-        .populate('process')
-        .populate('questions')
-        .populate('questions.choices')
         .then(form => res.send(form))
         .catch(error => res.send(error));
 };
@@ -53,6 +51,7 @@ exports.edit = function (req, res) {
             $set: {
                 ref: req.body.ref,
                 title: req.body.title,
+                isActive: req.body.isActive,
                 description: req.body.description,
                 questions: req.body.questions,
                 process: req.body.process

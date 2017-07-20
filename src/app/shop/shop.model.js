@@ -5,7 +5,7 @@ var ShopSchema = new mongoose.Schema({
     shop_name:String,
     client_name:String,
     email:String,
-    tel:Number,
+    tel:{type: Number},
     address: String,
 	city: String,
 	province: String,

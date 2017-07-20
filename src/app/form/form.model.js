@@ -4,6 +4,7 @@ var FormSchema = new mongoose.Schema({
     ref:String,
     title: String,
     description:String,
+    isActive:Boolean,
     questions:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Question' }],
     process:{ type: mongoose.Schema.Types.ObjectId, ref: 'Process' },
 });
