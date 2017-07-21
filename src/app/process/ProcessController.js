@@ -1,4 +1,4 @@
-var Process = require('./process.model.js');
+var Process,mongoose = require('./process.model.js');
 
 // Display list of all processs
 exports.get = function (req, res) {
@@ -20,10 +20,9 @@ exports.add = function (req, res) {
     const newProcess = new Process({
         name: req.body.name,
         description: req.body.description,
-        chef: req.body.chef
+        chef: mongoose.Types.ObjectId(req.body.chef)
     });
     newProcess.save()
-        .populate('chef')
         .then(process => res.send(process))
         .catch(error => res.send(error));
 };
@@ -35,7 +34,7 @@ exports.edit = function (req, res) {
             $set: {
                 name: req.body.name,
                 description: req.body.description,
-                chef: req.body.chef
+                chef: mongoose.Types.ObjectId(req.body.chef)
             }
         },
         { upsert: true })

@@ -1,4 +1,4 @@
-var Report = require('./report.model.js');
+var Report,mongoose = require('./report.model.js');
 
 // Display list of all reports
 exports.get = function (req, res) {
@@ -40,18 +40,13 @@ exports.add = function (req, res) {
     const newShop = new Shop({
         ref: req.body.ref,
         date: req.body.date,
-        user: req.body.user,
-        shop: req.body.shop,
-        form: req.body.form,
-        answers: req.body.answers,
-        process: req.body.process
+        user: mongoose.Types.ObjectId(req.body.user),
+        shop: mongoose.Types.ObjectId(req.body.shop),
+        form: mongoose.Types.ObjectId(req.body.form),
+        answers: req.body.answersmap(function (answer) { return mongoose.Types.ObjectId(answer); }),
+        process: mongoose.Types.ObjectId(req.body.process)
     });
     newShop.save()
-        .populate('user')
-        .populate('shop')
-        .populate('form')
-        .populate('answers')
-        .populate('process')
         .then(shop => res.send(shop))
         .catch(error => res.send(error));
 };
@@ -63,11 +58,11 @@ exports.edit = function (req, res) {
             $set: {
                 ref: req.body.ref,
                 date: req.body.date,
-                user: req.body.user,
-                shop: req.body.shop,
-                form: req.body.form,
-                answers: req.body.answers,
-                process: req.body.process
+                user: mongoose.Types.ObjectId(req.body.user),
+                shop: mongoose.Types.ObjectId(req.body.shop),
+                form: mongoose.Types.ObjectId(req.body.form),
+                answers: req.body.answersmap(function (answer) { return mongoose.Types.ObjectId(answer); }),
+                process: mongoose.Types.ObjectId(req.body.process)
             }
         },
         { upsert: true })

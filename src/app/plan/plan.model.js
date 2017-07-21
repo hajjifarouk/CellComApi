@@ -6,4 +6,4 @@ var PlanSchema = new mongoose.Schema({
     visits:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Visit' }],
 });
 
-module.exports = mongoose.model("Plan", PlanSchema);
+module.exports = mongoose.model("Plan", PlanSchema),mongoose;

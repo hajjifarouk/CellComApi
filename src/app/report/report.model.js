@@ -10,4 +10,4 @@ var ReportSchema = new mongoose.Schema({
     process:{ type: mongoose.Schema.Types.ObjectId, ref: 'Process' },
     imgs: [{ data: Buffer, contentType: String }],
 });
-module.exports = mongoose.model("Report", ReportSchema);
+module.exports = mongoose.model("Report", ReportSchema),mongoose;

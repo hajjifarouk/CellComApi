@@ -6,4 +6,4 @@ var VisitSchema = new mongoose.Schema({
     process:{ type: mongoose.Schema.Types.ObjectId, ref: 'Process' }
 });
 
-module.exports = mongoose.model("Visit", VisitSchema);
+module.exports = mongoose.model("Visit", VisitSchema),mongoose;

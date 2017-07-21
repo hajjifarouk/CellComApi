@@ -1,4 +1,4 @@
-var Plan = require('./plan.model.js');
+var Plan, mongoose = require('./plan.model.js');
 
 // Display list of all plans
 exports.get = function (req, res) {
@@ -30,12 +30,10 @@ exports.getOneById = function (req, res) {
 exports.add = function (req, res) {
     const newPlan = new Plan({
         date: req.body.date,
-        user: req.body.user,
-        visits: req.body.visits
+        user: mongoose.Types.ObjectId(req.body.user),
+        visits: req.body.visits.map(function (visit) { return mongoose.Types.ObjectId(visit); })
     });
     newPlan.save()
-        .populate('user')
-        .populate('visits')
         .then(plan => res.send(plan))
         .catch(error => res.send(error));
 };
@@ -46,8 +44,8 @@ exports.edit = function (req, res) {
         {
             $set: {
                 date: req.body.date,
-                user: req.body.user,
-                visits: req.body.visits
+                user: mongoose.Types.ObjectId(req.body.user),
+                visits: req.body.visits.map(function (visit) { return mongoose.Types.ObjectId(visit); })
             }
         },
         { upsert: true })

@@ -1,4 +1,4 @@
-var Shop = require('./shop.model.js');
+var Shop, mongoose = require('./shop.model.js');
 
 // Display list of all shops
 exports.get = function (req, res) {
@@ -37,8 +37,8 @@ exports.add = function (req, res) {
         address: req.body.address,
         city: req.body.city,
         province: req.body.province,
-        place: req.body.place,
-        process: req.body.process
+        place: mongoose.Types.ObjectId(req.body.place),
+        process: mongoose.Types.ObjectId(req.body.process)
     });
     newShop.save()
         .then(shop => res.send(shop))
@@ -57,8 +57,8 @@ exports.edit = function (req, res) {
                 address: req.body.address,
                 city: req.body.city,
                 province: req.body.province,
-                place: req.body.place,
-                process: req.body.process
+                place: mongoose.Types.ObjectId(req.body.place),
+                process: mongoose.Types.ObjectId(req.body.process)
             }
         },
         { upsert: true })

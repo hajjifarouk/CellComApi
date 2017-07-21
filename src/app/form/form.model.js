@@ -8,4 +8,4 @@ var FormSchema = new mongoose.Schema({
     questions:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Question' }],
     process:{ type: mongoose.Schema.Types.ObjectId, ref: 'Process' },
 });
-module.exports = mongoose.model("Form", FormSchema);
+module.exports = mongoose.model("Form", FormSchema),mongoose;

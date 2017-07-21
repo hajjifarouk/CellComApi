@@ -28,10 +28,9 @@ exports.add = function (req, res) {
     const newQuestion = new Question({
         text: req.body.body,
         kind: req.body.type,
-        choices: req.body.choices
+        choices: req.body.choices.map(function(choice) { return mongoose.Types.ObjectId(choice);})
     });
     newQuestion.save()
-        .populate('choices')
         .then(question => res.send(question))
         .catch(error => res.send(error));
 };
@@ -43,7 +42,7 @@ exports.edit = function (req, res) {
             $set: {
                 text: req.body.body,
                 kind: req.body.type,
-                choices: req.body.choices
+                choices: req.body.choices.map(function(choice) { return mongoose.Types.ObjectId(choice);})
             }
         },
         { upsert: true })

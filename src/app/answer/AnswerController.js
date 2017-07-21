@@ -1,4 +1,4 @@
-var Answer = require('./answer.model.js');
+var Answer ,mongoose = require('./answer.model.js');
 
 // Display list of all answers
 exports.get = function (req, res) {
@@ -27,10 +27,9 @@ exports.getOneById = function (req, res) {
 exports.add = function (req, res) {
     const newAnswer = new Answer({
         text: req.body.text,
-        question: req.body.question
+        question:mongoose.Types.ObjectId( req.body.question)
     });
     newAnswer.save()
-        .populate('question')
         .then(answer => res.send(answer))
         .catch(error => res.send(error));
 };
@@ -41,7 +40,7 @@ exports.edit = function (req, res) {
         {
             $set: {
                 text: req.body.text,
-                question: req.body.question
+                question: mongoose.Types.ObjectId( req.body.question)
             }
         },
         { upsert: true })

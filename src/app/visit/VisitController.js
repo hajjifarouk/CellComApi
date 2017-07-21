@@ -1,4 +1,4 @@
-var Visit = require('./visit.model.js');
+var Visit, mongoose = require('./visit.model.js');
 
 // Display list of all Visits
 exports.get = function (req, res) {
@@ -30,12 +30,10 @@ exports.getOneById = function (req, res) {
 exports.add = function (req, res) {
     const newVisit = new Visit({
         status: req.body.status,
-        shop: req.body.shop,
-        process: req.body.process
+        shop: mongoose.Types.ObjectId(req.body.shop),
+        process: mongoose.Types.ObjectId(req.body.process)
     });
     newVisit.save()
-        .populate('process')
-        .populate('shop')
         .then(visit => res.send(visit))
         .catch(error => res.send(error));
 };
@@ -46,8 +44,8 @@ exports.edit = function (req, res) {
         {
             $set: {
                 status: req.body.status,
-                shop: req.body.shop,
-                process: req.body.process
+                shop: mongoose.Types.ObjectId(req.body.shop),
+                process: mongoose.Types.ObjectId(req.body.process)
             }
         },
         { upsert: true })

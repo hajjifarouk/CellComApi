@@ -15,4 +15,4 @@ var UserSchema = new mongoose.Schema({
     role:String
 });
 
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model("User", UserSchema),mongoose;

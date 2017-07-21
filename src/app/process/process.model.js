@@ -6,4 +6,4 @@ var ProcessSchema = new mongoose.Schema({
     chef:{ type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 });
 
-module.exports = mongoose.model("Process", ProcessSchema);
+module.exports = mongoose.model("Process", ProcessSchema),mongoose;

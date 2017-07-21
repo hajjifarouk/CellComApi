@@ -13,4 +13,4 @@ var ShopSchema = new mongoose.Schema({
     process:{ type: mongoose.Schema.Types.ObjectId, ref: 'Process' },
 });
 
-module.exports = mongoose.model("Shop", ShopSchema);
+module.exports = mongoose.model("Shop", ShopSchema),mongoose;

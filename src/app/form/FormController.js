@@ -1,4 +1,4 @@
-var Form = require('./form.model.js');
+var Form ,mongoose = require('./form.model.js');
 
 // Display list of all forms
 exports.get = function (req, res) {
@@ -36,8 +36,8 @@ exports.add = function (req, res) {
         title: req.body.title,
         isActive: req.body.isActive,
         description: req.body.description,
-        questions: req.body.questions,
-        process: req.body.process
+        questions: req.body.questions.map(function(question) { return mongoose.Types.ObjectId(question);}),
+        process: mongoose.Types.ObjectId(req.body.process)
     });
     newForm.save()
         .then(form => res.send(form))
@@ -53,8 +53,8 @@ exports.edit = function (req, res) {
                 title: req.body.title,
                 isActive: req.body.isActive,
                 description: req.body.description,
-                questions: req.body.questions,
-                process: req.body.process
+                questions:req.body.questions.map(function(question) { return mongoose.Types.ObjectId(question);}),
+                process: mongoose.Types.ObjectId(req.body.process)
             }
         },
         { upsert: true })

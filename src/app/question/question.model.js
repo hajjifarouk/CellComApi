@@ -6,4 +6,4 @@ var QuestionSchema = new mongoose.Schema({
     choices:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Choice' }]
 });
 
-module.exports = mongoose.model("Question", QuestionSchema);
+module.exports = mongoose.model("Question", QuestionSchema),mongoose;
